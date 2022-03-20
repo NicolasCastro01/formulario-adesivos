@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import AppContext from "../../context/appContext";
 import Box from "./Box";
 
 import { Container, Label } from "./styles";
@@ -8,8 +9,9 @@ import { Container, Label } from "./styles";
 const CheckBox: React.FC<{
   label: string;
   toggle: (label: string, checked: boolean) => void;
-}> = ({ label, toggle }): JSX.Element => {
-  const [isChecked, setChecked] = useState(false);
+  defaultValue?: boolean;
+}> = ({ label, toggle, defaultValue }): JSX.Element => {
+  const [isChecked, setChecked] = useState(defaultValue || false);
   const toggleChecked = () => {
     toggle(label, isChecked);
     setChecked(!isChecked);

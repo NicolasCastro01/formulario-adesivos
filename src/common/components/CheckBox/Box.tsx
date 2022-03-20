@@ -25,7 +25,7 @@ const Box: React.FC<{
   setChecked: (check: boolean) => void;
 }> = (props): JSX.Element => {
   const { isChecked, setChecked } = props;
-  const pathLength = useMotionValue(0);
+  const pathLength = useMotionValue(isChecked ? 1 : 0);
   const opacity = useTransform(pathLength, [0.05, 0.15], [0, 1]);
   return (
     <motion.svg
