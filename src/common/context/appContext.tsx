@@ -13,6 +13,7 @@ interface AppContextInterface {
   invalids: string[];
   setInvalids(invalids: string[]): void;
   currentPage: number;
+  setCurrentPage(page: number): void;
 }
 
 const AppContext = createContext<AppContextInterface>(null);
@@ -34,6 +35,13 @@ export const AppContextProvider: React.FC = ({ children }) => {
       );
     }
     setInvalids(newInvalids);
+    setForm({
+      ...form,
+      stickers: form.stickers.reduce((arr, sticker) => {
+        if (arr.includes(sticker)) return arr;
+        return [...arr, sticker];
+      }, []),
+    });
     if (!newInvalids.length) setCurrentPage(1);
   };
   const [form, setForm] = useState<Form>({
@@ -50,6 +58,7 @@ export const AppContextProvider: React.FC = ({ children }) => {
         invalids,
         setInvalids,
         currentPage,
+        setCurrentPage,
       }}
     >
       {children}
