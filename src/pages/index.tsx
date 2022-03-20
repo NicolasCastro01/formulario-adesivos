@@ -5,28 +5,43 @@ import Card from "../common/components/Card";
 import Backdrop from "../common/components/Modal/Backdrop";
 import MiddleAlertModal from "../common/components/Modal/MiddleAlertModal";
 import AppContext from "../common/context/appContext";
+import Checkout from "../modules/Checkout";
 import ShopForm from "../modules/ShopForm";
 
 const Home = (): JSX.Element => {
-  const { form, invalids, setForm, validateForm, setInvalids } =
-    useContext(AppContext);
+  const { currentPage, modal } = useContext(AppContext);
+
   return (
     <>
       <AnimatePresence initial={false} exitBeforeEnter={true}>
-        {invalids.length > 0 && (
-          <MiddleAlertModal
-            title="Configuração Inválida"
-            content={invalids}
-            callback={() => {
-              setInvalids([]);
-            }}
-          />
+        {modal}
+      </AnimatePresence>
+      <AnimatePresence initial={false} exitBeforeEnter={true}>
+        {currentPage === 0 && (
+          <Card
+            height="780px"
+            width="540px"
+            decorator="wave1"
+            initialAnimation="-200vh"
+            exitAnimation="-200vh"
+          >
+            <ShopForm />
+          </Card>
         )}
       </AnimatePresence>
-
-      <Card height="780px" width="540px" decorator="wave1">
-        <ShopForm />
-      </Card>
+      <AnimatePresence initial={false} exitBeforeEnter={true}>
+        {currentPage === 1 && (
+          <Card
+            height="780px"
+            width="540px"
+            decorator="wave2"
+            initialAnimation="200vh"
+            exitAnimation="200vh"
+          >
+            <Checkout />
+          </Card>
+        )}
+      </AnimatePresence>
     </>
   );
 };
