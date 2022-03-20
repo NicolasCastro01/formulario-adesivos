@@ -1,4 +1,7 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
+import MiddleAlertModal, {
+  Content,
+} from "../components/Modal/MiddleAlertModal";
 
 export interface Form {
   stickers: string[];
@@ -10,16 +13,61 @@ interface AppContextInterface {
   form: Form;
   setForm(form: Form): void;
   validateForm(): void;
-  invalids: string[];
-  setInvalids(invalids: string[]): void;
   currentPage: number;
   setCurrentPage(page: number): void;
+  modal: JSX.Element;
+  success(): void;
 }
 
 const AppContext = createContext<AppContextInterface>(null);
 
 export const AppContextProvider: React.FC = ({ children }) => {
   const [invalids, setInvalids] = useState<string[]>([]);
+  const modals = {
+    invalids: (
+      <MiddleAlertModal
+        title="Configuração Inválida"
+        content={invalids}
+        callback={() => {
+          setInvalids([]);
+          setModal(null);
+        }}
+      />
+    ),
+    success: (
+      <MiddleAlertModal
+        title="Compra Realizada com Sucesso!"
+        content={[
+          "Clique para voltar a página inical",
+          <Content key="link">
+            Acesse também o meu{" "}
+            <a
+              href="https://pedrobzzdev.vercel.app"
+              target="_blank"
+              rel="noreferrer"
+            >
+              site
+            </a>
+            .
+          </Content>,
+        ]}
+        callback={() => {
+          setModal(null);
+          setCurrentPage(0);
+          setForm({
+            stickers: [],
+            amount: 1,
+            notes: "",
+          });
+        }}
+      />
+    ),
+  };
+  useEffect(() => {
+    if (invalids.length) setModal(modals["invalids"]);
+  }, [invalids]);
+
+  const [modal, setModal] = useState<JSX.Element>(null);
   const [currentPage, setCurrentPage] = useState(0);
   const validateForm = async () => {
     console.log(form);
@@ -42,7 +90,7 @@ export const AppContextProvider: React.FC = ({ children }) => {
         return [...arr, sticker];
       }, []),
     });
-    if (!newInvalids.length) setCurrentPage(1);
+    if (!newInvalids.length) return setCurrentPage(1);
   };
   const [form, setForm] = useState<Form>({
     stickers: [],
@@ -55,10 +103,12 @@ export const AppContextProvider: React.FC = ({ children }) => {
         form,
         setForm,
         validateForm,
-        invalids,
-        setInvalids,
         currentPage,
         setCurrentPage,
+        modal,
+        success: () => {
+          setModal(modals["success"]);
+        },
       }}
     >
       {children}
