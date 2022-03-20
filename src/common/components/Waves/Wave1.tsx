@@ -7,7 +7,7 @@ const SVG = styled.svg`
   right: 0;
 `;
 
-const Wave1: React.FC<{ width?: string }> = ({ width }): JSX.Element => {
+const Wave1: React.FC = (): JSX.Element => {
   return (
     <SVG
       width="540"
