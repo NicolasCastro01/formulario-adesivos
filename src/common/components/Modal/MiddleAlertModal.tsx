@@ -1,10 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import { AnimatePresence, motion } from "framer-motion";
+import Link from "next/link";
 import React from "react";
 
 import styled from "styled-components";
 import FormSubmit from "../FormSubmit";
+import Separator from "../Separator";
 import Backdrop from "./Backdrop";
 
 const Container = styled(motion.div)`
@@ -22,7 +24,7 @@ const Title = styled.h1`
   font-size: 1.2rem;
 `;
 
-const Content = styled.p`
+export const Content = styled.p`
   margin: 0;
   font-size: 0.9rem;
   margin: 10px 0 0 10px;
@@ -51,7 +53,7 @@ const dropIn = {
 
 const MiddleAlertModal: React.FC<{
   title: string;
-  content: string | string[];
+  content: string | Array<string | JSX.Element>;
   callback: () => void;
 }> = ({ title, content, callback }): JSX.Element => {
   return (
@@ -66,8 +68,15 @@ const MiddleAlertModal: React.FC<{
         {typeof content === "string" ? (
           <Content>{content}</Content>
         ) : (
-          content.map(cont => <Content key={cont}>{cont}</Content>)
+          content.map(cont =>
+            typeof cont === "string" ? (
+              <Content key={cont}>{cont}</Content>
+            ) : (
+              cont
+            ),
+          )
         )}
+        <Separator height="20px" />
         <div style={{ display: "flex", justifyContent: "center" }}>
           <FormSubmit submit={callback} label={"Entendido"} />
         </div>
