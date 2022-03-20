@@ -20,7 +20,7 @@ Este formulário faz parte de um desafio de programação para testar o nível d
 
 ---
 ## **Como usar**
-Uma demo pode ser encontrada na [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example).
+Uma demo pode ser encontrada na [Vercel](https://formulario-adesivos.vercel.app/).
 
 Para executar localmente, utilize:
 ```bash
