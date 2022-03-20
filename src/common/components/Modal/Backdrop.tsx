@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
+import { motion } from "framer-motion";
 import React from "react";
 
 /* import { Container } from "./styles"; */
@@ -8,7 +9,10 @@ const Backdrop: React.FC<{ callback: () => void }> = ({
   callback,
 }): JSX.Element => {
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
       onClick={callback}
       style={{
         position: "absolute",
