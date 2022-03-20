@@ -17,7 +17,6 @@ import {
 
 const ShopForm: React.FC = (): JSX.Element => {
   const { form, setForm, validateForm } = useContext(AppContext);
-  const [invalids, setInvalids] = useState<string[]>([]);
   const updateStickers = (label: string, checked: boolean) => {
     if (checked) {
       setForm({
@@ -72,8 +71,6 @@ const ShopForm: React.FC = (): JSX.Element => {
           <FormSubmit submit={validateForm} />
         </div>
       </FormContainer>
-
-      {form && invalids.map(inv => <p key={inv}>{inv}</p>)}
     </Container>
   );
 };
