@@ -27,7 +27,7 @@ const NumberInput: React.FC<{
         onChange={e => {
           const inputValue = parseInt(e.target.value);
           updateValue(
-            inputValue >= 0 && inputValue < 999
+            inputValue >= 0 && inputValue <= 999
               ? parseInt(e.target.value)
               : null,
           );
