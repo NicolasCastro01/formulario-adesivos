@@ -40,9 +40,21 @@ const ShopForm: React.FC = (): JSX.Element => {
       </HeaderContainer>
       <FormContainer>
         <FormLabel>Quais Adesivos?</FormLabel>
-        <CheckBox label="React" toggle={updateStickers} />
-        <CheckBox label="Vue" toggle={updateStickers} />
-        <CheckBox label="Angular" toggle={updateStickers} />
+        <CheckBox
+          label="React"
+          toggle={updateStickers}
+          defaultValue={form.stickers.includes("React")}
+        />
+        <CheckBox
+          label="Vue"
+          toggle={updateStickers}
+          defaultValue={form.stickers.includes("Vue")}
+        />
+        <CheckBox
+          label="Angular"
+          toggle={updateStickers}
+          defaultValue={form.stickers.includes("Angular")}
+        />
         <Separator height="20px" />
         <FormLabel>Quantos adesivos de cada?</FormLabel>
         <NumberInput
