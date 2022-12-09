@@ -73,14 +73,14 @@ export const AppContextProvider: React.FC = ({ children }) => {
     console.log(form);
     const newInvalids = [];
     const hasStickersSelected = !!form.stickers.length;
-    const hasAmout = !!form.amount;
+    const hasAmount = !!form.amount;
 
     if (!hasStickersSelected) {
       newInvalids.push(
         "Você deve escolher, pelo menos, um adesivo para continuar com o pedido.",
       );
     }
-    if (!hasAmout) {
+    if (!hasAmount) {
       newInvalids.push(
         "Para finalizar o pedido é necessario especificar uma quantidade",
       );
